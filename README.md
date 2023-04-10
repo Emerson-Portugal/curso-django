@@ -108,6 +108,56 @@ class Message(models.Model):
     
 ```
 
+## Implementacion de las plantillas 
+
+> Cuando creamos la interfas grafica, tenemos que crear los archivos ".html", donde se aloja la estructura base, pero tambien hay que hacer las conexiones a Django
+> Lo primero que haces es crear el archivo ".html" en "base/templates/base" , una vez creado el archivo, has que instanciarlo en el archivo "views.py" y por ultimo tenemos que indexarle una URL asi que lo cremos en el archivo "urls.py"
+
+```html
+<!-- Estamos reando la plantilla del archivo .html--!>
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>Hola Home</h1>
+<div>
+  <div>
+    {% for room in rooms %}
+    <div>
+      <h5>
+        <span>@{{room.host.username}}</span>
+        {{room.id}} -- <a href="{% url 'room' room.id%}"> {{room.name}}</a>
+        <small>{{room.topic.name}}</small>
+        <hr />
+      </h5>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+
+{% endblock content %}
+
+```
+
+```python
+# le definimos una URl al archivo ".html" en el archivo ".views.py"
+from django.shortcuts import render
+from .models import Room
+def home(requst):
+    rooms = Room.objects.all()
+    context = {'rooms':rooms}
+    return render(requst, "base/home.html",context )
+```
+
+```python
+# indexamos esa URL en el archivo "urls.py"
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.home, name="home"),
+    path('room/<str:pk>/', views.room, name="room")
+]
+```
+
 ## Implementacion CRUD, funcionalidad en sitios Web
 
 - Crear

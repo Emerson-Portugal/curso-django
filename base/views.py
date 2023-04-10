@@ -3,6 +3,7 @@ from .models import Room
 #from django.http import HttpResponse
 # Create your views here.
 
+# Aqui se hace una instancia de los "templates\base", por cada ".html" se crea una funcion
 
 # rooms = [
 #     {'id': 1, 'name': 'Aprendo python'},
