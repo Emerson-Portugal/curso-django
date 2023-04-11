@@ -15,8 +15,8 @@ topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True) -> Hace r
 '''
 
 
-## Temas
 
+## Buscador 
 
 class Topic (models.Model):
     name = models.CharField(max_length=200)
@@ -26,7 +26,7 @@ class Topic (models.Model):
 
 
 
-
+## Temas
 
 class Room(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -45,7 +45,19 @@ class Room(models.Model):
     auto_now=True -> crea una instancia cada ves que modifica y se guarda
 
     auto_now_add=True -> Crea una instancia solo una ves creado
-    '''         
+    '''   
+
+    # vamos agregar los valor segun su orden de creacion
+    '''
+    '-updated', '-created' -> ultimo creado -> primero en la lista
+
+    'updated', 'created' -> ultimo creado -> ultimo en la lista
+    '''
+
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
     def __str__(self):
         return self.name
     

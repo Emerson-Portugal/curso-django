@@ -1,0 +1,11 @@
+{% extends 'main.html' %} {% block content %}
+
+<form method="POST" action="">
+  <!--Aqui  necesitamos un Token CSRF -> no se para que sirve-->
+  {% csrf_token %}
+  <p>Estas seguro de Eliminar "{{obj}}?"</p>
+  <a href="{{request.META.HTTP_REFERER}}"> Regresar</a>
+  <input type="submit" value="Confirm" />
+</form>
+
+{% endblock content %}
